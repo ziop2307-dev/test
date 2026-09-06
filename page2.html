@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>두 번째 페이지</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+      background: linear-gradient(135deg, #ff512f 0%, #f09819 100%);
+      color: white;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 50px 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.1em;
+      opacity: 0.9;
+      margin-bottom: 25px;
+    }
+    a.button {
+      display: inline-block;
+      padding: 12px 28px;
+      background: white;
+      color: #ff512f;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 999px;
+      transition: transform 0.2s ease;
+    }
+    a.button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🚀 두 번째 페이지</h1>
+    <p>버튼을 눌러서 여기까지 잘 이동했어요!</p>
+    <a href="index.html" class="button">← 첫 페이지로 돌아가기</a>
+  </div>
+</body>
+</html>
