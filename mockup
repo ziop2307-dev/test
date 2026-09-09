@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENITH - 캠페인 수익 관리 목업</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;color:#333;background:#f5f7fb;font-size:14px}
+.app{height:100vh;min-width:1180px;overflow:hidden}
+.top{height:70px;background:#fff;border-bottom:1px solid #e5e8ee;display:flex;align-items:center;padding:0 22px;gap:38px}
+.logo{font-size:25px;font-weight:800;letter-spacing:-1px}.logo span{color:#09a4d8}.logo b{color:#444}
+.nav{display:flex;align-items:center;gap:34px;height:100%;color:#777;font-weight:600}.nav .active{height:100%;display:flex;align-items:center;color:#168dcc;border-bottom:3px solid #168dcc}.nav span{white-space:nowrap}
+.ai{margin-left:auto;background:#178ec5;color:white;border-radius:5px;padding:7px 8px;font-weight:bold;position:relative}.ai:after{content:"";width:6px;height:6px;background:#ff5a5f;border-radius:50%;position:absolute;right:-2px;top:-2px}
+.body{display:flex;height:calc(100vh - 70px)}
+.sidebar{width:300px;background:#fff;border-right:1px solid #e1e5eb;padding:22px 18px;overflow:hidden}
+.search{height:36px;background:#f0f4fc;border-radius:7px;padding:9px 12px;color:#7b8490}.side-title{margin-top:28px;font-weight:bold;border-bottom:1px solid #ddd;padding-bottom:10px}.side-title:before{content:"";display:inline-block;width:3px;height:15px;background:#318ee0;margin-right:6px;vertical-align:-2px}
+.client{display:flex;justify-content:space-between;padding:8px 2px;color:#555}.client .star{color:#168dcc;margin-right:6px}.badge{background:#f5f6f8;border:1px solid #ddd;border-radius:4px;padding:2px 7px;font-size:11px}
+.main{flex:1;padding:30px 24px;overflow:hidden}.page-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}.page-title h2{margin:0;font-size:19px}.switch{width:32px;height:18px;border-radius:20px;background:#aeb5bd;position:relative}.switch:after{content:"";width:14px;height:14px;border-radius:50%;background:white;position:absolute;left:2px;top:2px}.toolbar{display:flex;gap:8px;margin-bottom:14px}.input{width:260px;height:38px;border:1px solid #ccd2db;background:#fff;border-radius:5px;padding:0 12px}.btn{height:38px;border:1px solid #ccd2db;background:white;border-radius:5px;padding:0 13px;color:#555}.btn.blue{color:#148dcc}
+.card{background:white;border-radius:10px;box-shadow:0 5px 20px rgba(35,55,80,.07);overflow:hidden}.table{width:100%;border-collapse:collapse}.table th{height:45px;color:#777;font-size:12px;border-bottom:1px solid #e1e5ea;background:#fff}.table td{height:72px;text-align:center;border-bottom:1px solid #edf0f4;color:#444}.table td:first-child{text-align:left;padding-left:22px}.campaign{font-weight:bold}.sub{font-size:11px;color:#9299a4;margin-top:4px}.profit-bad{display:inline-block;border:1px solid #ff9ba0;background:#fff3f3;color:#ed535b;border-radius:5px;padding:5px 8px;font-size:11px}.profit-good{display:inline-block;border:1px solid #91db72;background:#f1ffeb;color:#40a52c;border-radius:5px;padding:5px 8px;font-size:11px}
+.status{color:#138dca}.status:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#138dca;margin-right:5px}
+.footer{height:65px;display:flex;align-items:center;justify-content:space-between;color:#999;font-size:11px}
+.panel{width:330px;background:#fff;border-left:1px solid #dfe4eb;box-shadow:-5px 0 18px rgba(30,50,80,.06);display:flex;flex-direction:column}
+.panel-head{padding:18px 16px 12px;border-bottom:1px solid #e7ebf0;display:flex;align-items:center;gap:8px}.panel-head h3{margin:0;font-size:17px}.count{background:#168dcc;color:white;border-radius:4px;padding:2px 6px;font-size:10px}.close{margin-left:auto;font-size:22px;color:#777}
+.tabs{display:flex;padding:0 14px;border-bottom:1px solid #e3e7ec}.tab{flex:1;text-align:center;padding:12px 2px;font-size:12px;color:#777}.tab.active{color:#138dca;font-weight:bold;border-bottom:3px solid #138dca}
+.summary{display:flex;margin:14px 14px 6px;background:#f7f9fc;border-radius:7px}.summary div{flex:1;text-align:center;padding:9px 2px}.summary b{display:block;font-size:16px}.summary small{color:#777}.danger{color:#e84850!important}.warning{color:#d99717!important}.info{color:#168dcc!important}
+.alert{margin:0 14px;border-bottom:1px solid #e5e8ed;padding:14px 0;position:relative}.alert-top{display:flex;align-items:center;gap:7px;font-weight:bold}.tag{font-size:10px;border-radius:4px;padding:4px 7px}.tag.red{background:#fff0f1;color:#e84b54}.tag.yellow{background:#fff7df;color:#d59513}.tag.blue{background:#edf7ff;color:#158dcc}.alert h4{margin:7px 0 5px;font-size:13px}.alert p{margin:0;color:#555;font-size:11px;line-height:1.6}.alert .metric{color:#e84b54;font-weight:bold}.detail{position:absolute;right:0;top:14px;border:1px solid #d7dce3;background:#fff;border-radius:4px;padding:5px 7px;font-size:10px;color:#555}.all{margin-top:auto;padding:15px 16px;color:#138dca;font-weight:bold;font-size:12px}
+
+/* 상세보기 모달 */
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,32,48,.28);z-index:50;display:none}
+.modal-backdrop.show{display:block}
+.detail-modal{position:fixed;right:0;top:0;height:100vh;width:520px;background:#fff;z-index:60;box-shadow:-12px 0 35px rgba(25,45,70,.18);transform:translateX(100%);transition:transform .25s ease;overflow:auto}
+.detail-modal.show{transform:translateX(0)}
+.modal-header{height:72px;border-bottom:1px solid #e5e9ef;display:flex;align-items:center;padding:0 24px;gap:10px;position:sticky;top:0;background:#fff;z-index:2}
+.modal-header h2{margin:0;font-size:18px}.modal-close{margin-left:auto;border:0;background:none;font-size:25px;color:#777;cursor:pointer}
+.modal-body{padding:22px 24px 32px}
+.alert-summary{border:1px solid #ffd0d3;background:#fff7f7;border-radius:8px;padding:16px;margin-bottom:20px}
+.alert-summary .line{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.alert-summary .line:last-child{margin-bottom:0}
+.big-status{font-weight:bold;color:#e74d56}.timestamp{font-size:11px;color:#8a929d}
+.section{margin-top:22px}.section h3{font-size:14px;margin:0 0 10px}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.metric-card{border:1px solid #e4e8ee;border-radius:7px;padding:13px}.metric-card small{display:block;color:#888;font-size:11px;margin-bottom:6px}.metric-card strong{font-size:17px}.negative{color:#e74d56}.positive{color:#35a52c}
+.breakdown{border:1px solid #e4e8ee;border-radius:7px;overflow:hidden}.breakdown-row{display:flex;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #edf0f3}.breakdown-row:last-child{border-bottom:0;font-weight:bold;background:#f8fafc}
+.reason{background:#f7f9fc;border-radius:7px;padding:13px;font-size:12px;line-height:1.7;color:#555}
+.timeline{border-left:2px solid #e1e6ec;margin-left:6px;padding-left:18px}.timeline-item{position:relative;margin-bottom:18px;font-size:12px}.timeline-item:before{content:"";position:absolute;left:-25px;top:3px;width:8px;height:8px;border-radius:50%;background:#168dcc}.timeline-item b{display:block;margin-bottom:4px}.action-row{display:flex;gap:8px;margin-top:25px}.action-row button{flex:1;height:42px;border-radius:6px;border:1px solid #d2d8e0;background:#fff;cursor:pointer;font-weight:600}.action-row .primary{background:#168dcc;color:#fff;border-color:#168dcc}
+
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="logo"><span>Z</span>ENITH</div>
+  <nav class="nav">
+    <span>▣ 광고 분석 관리⌄</span><span>♙ 고객 DB 관리</span><span class="active">▣ 캠페인 관리⌄</span>
+    <span>♧ 광고주 관리⌄</span><span>♧ 회원 관리</span><span>⚙ 설정 관리⌄</span><span>⇥ 사용 자료⌄</span>
+  </nav><div class="ai">AI</div>
+</header>
+<div class="body">
+<aside class="sidebar">
+  <div class="search">⌕ Search</div>
+  <div class="side-title">Total <span style="float:right;color:#777">1,008</span></div>
+  <div class="client"><span><span class="star">★</span>K쇼핑 신규캠페인</span><span class="badge">11　35</span></div>
+  <div class="client"><span><span class="star">★</span>강남언니 광고 캠페인</span><span class="badge">8　18</span></div>
+  <div class="client"><span><span class="star">★</span>강남연세치과</span><span class="badge">4　30</span></div>
+  <div class="client"><span><span class="star">★</span>GCM_신규브랜딩</span><span class="badge">1　10</span></div>
+  <div class="client"><span>☆ 일상소비재 프로모션</span><span class="badge">0　9</span></div>
+  <div class="client"><span>☆ 힐링여행 타겟팅</span><span class="badge">2　17</span></div>
+  <div class="client"><span>☆ 강남리더스_브랜드</span><span class="badge">42　60</span></div>
+  <div class="client"><span>☆ 생활용품 브랜딩</span><span class="badge">0　8</span></div>
+  <div class="client"><span>☆ 우리은행 디지털 캠페인</span><span class="badge">1　15</span></div>
+  <div class="client"><span>☆ 풀스탠드 프로모션</span><span class="badge">0　25</span></div>
+</aside>
+<main class="main">
+  <div class="page-title"><h2>캠페인 수익 관리</h2><div class="switch"></div></div>
+  <div class="toolbar"><input class="input" placeholder="🔍 검색어를 입력해주세요"><button class="btn blue">사용여부</button><button class="btn blue">전체</button><button class="btn">최신 수정일</button></div>
+  <div class="card">
+  <table class="table">
+    <thead><tr><th>광고주</th><th>캠페인명</th><th>캠페인 유형</th><th>매체</th><th>매출 · 수</th><th>매체비 · 수</th><th>인건비 · 수</th><th>공헌이익 · 수</th><th>수익률(%)</th><th>상태</th></tr></thead>
+    <tbody>
+      <tr><td><span class="campaign">BE13146E</span><div class="sub">광고주</div></td><td>정도종합병원</td><td>브랜딩</td><td>네이버_검색<div class="sub">네이버, 카카오</div></td><td>4,500만</td><td>4,100만</td><td>600만</td><td><span class="profit-bad">-200만</span></td><td style="color:#ed535b">-4.4%</td><td><span class="status">사용</span></td></tr>
+      <tr><td><span class="campaign">DZ13145E</span><div class="sub">광고주</div></td><td>정도종합병원</td><td>브랜딩</td><td>구글_디스플레이<div class="sub">구글, 유튜브</div></td><td>3,200만</td><td>2,500만</td><td>400만</td><td><span class="profit-good">300만</span></td><td>9.4%</td><td><span class="status">사용</span></td></tr>
+      <tr><td><span class="campaign">IU13144</span><div class="sub">광고주</div></td><td>정도종합병원</td><td>브랜딩</td><td>네이버_검색</td><td>2,800만</td><td>2,100만</td><td>350만</td><td><span class="profit-good">350만</span></td><td>12.5%</td><td><span class="status">사용</span></td></tr>
+      <tr><td><span class="campaign">NP13143</span><div class="sub">광고주</div></td><td>정도종합병원</td><td>브랜딩</td><td>페이스북_광고</td><td>2,100만</td><td>1,800만</td><td>350만</td><td><span class="profit-good">-50만</span></td><td style="color:#ed535b">-2.4%</td><td><span class="status">사용</span></td></tr>
+      <tr><td><span class="campaign">VK13142</span><div class="sub">광고주</div></td><td>정도종합병원</td><td>브랜딩</td><td>네이버_검색</td><td>1,900만</td><td>1,450만</td><td>300만</td><td><span class="profit-good">150만</span></td><td>7.9%</td><td><span class="status">사용</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="footer"><span>총 1,234건　 페이지당　30개</span><span>‹ 이전　 <b style="color:#168dcc">1</b>　2　3　…　41 ›</span></div>
+</main>
+<aside class="panel">
+  <div class="panel-head"><span style="font-size:20px">♧</span><h3>이상감지 알림</h3><span class="count">12</span><span class="close">×</span></div>
+  <div class="tabs"><div class="tab active">전체 12</div><div class="tab">위험 4</div><div class="tab">주의 5</div><div class="tab">정보 3</div></div>
+  <div class="summary"><div><b>12</b><small>전체</small></div><div><b class="danger">4</b><small>위험</small></div><div><b class="warning">5</b><small>주의</small></div><div><b class="info">3</b><small>정보</small></div></div>
+  <div class="alert"><div class="alert-top"><span class="tag red">위험</span><span>2개월 연속 적자 발생</span></div><button class="detail" onclick="openDetail(this)">상세보기</button><h4>정도종합병원 · 네이버 검색 캠페인</h4><p>공헌이익 <span class="metric">-320만원</span>　수익률 <span class="metric">-4.2%</span><br>2026-09-09 10:24</p></div>
+  <div class="alert"><div class="alert-top"><span class="tag red">위험</span><span>공헌이익 마이너스</span></div><button class="detail" onclick="openDetail(this)">상세보기</button><h4>대외이유원 · 구글 디스플레이 캠페인</h4><p>공헌이익 <span class="metric">-180만원</span>　수익률 <span class="metric">-3.6%</span><br>2026-09-09 09:15</p></div>
+  <div class="alert"><div class="alert-top"><span class="tag yellow">주의</span><span>공헌이익률 급락</span></div><button class="detail" onclick="openDetail(this)">상세보기</button><h4>제로치과치부원 · 페이스북 광고 캠페인</h4><p>공헌이익률 <b style="color:#d99717">6.4%</b>　(전월 대비 <b style="color:#d99717">▼12.8%p</b>)<br>2026-09-09 08:32</p></div>
+  <div class="alert"><div class="alert-top"><span class="tag yellow">주의</span><span>매체비 비중 과다</span></div><button class="detail" onclick="openDetail(this)">상세보기</button><h4>우리은행 · 네이버 검색 캠페인</h4><p>매체비 비중 <b style="color:#d99717">92%</b>　(기준 70% 초과)<br>2026-09-08 14:21</p></div>
+  <div class="alert"><div class="alert-top"><span class="tag blue">정보</span><span>매출 감소</span></div><button class="detail" onclick="openDetail(this)">상세보기</button><h4>풀프리조트 · 카카오 디스플레이 캠페인</h4><p>매출 전월 대비 <b style="color:#168dcc">▼18%</b><br>2026-09-08 10:05</p></div>
+  <div class="all">전체 알림 보기 →</div>
+</aside>
+</div></div>
+
+<div class="modal-backdrop" id="backdrop" onclick="closeDetail()"></div>
+<aside class="detail-modal" id="detailModal" aria-label="이상감지 상세정보">
+  <div class="modal-header">
+    <span style="font-size:20px">⚠</span><h2>이상감지 상세보기</h2>
+    <button class="modal-close" onclick="closeDetail()">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="alert-summary">
+      <div class="line"><span class="big-status" id="dType">위험 · 2개월 연속 적자 발생</span><span class="timestamp" id="dTime">2026-09-09 10:24</span></div>
+      <div id="dCampaign" style="font-weight:bold;font-size:14px">정도종합병원 · 네이버 검색 캠페인</div>
+    </div>
+
+    <div class="section">
+      <h3>수익성 현황</h3>
+      <div class="metric-grid">
+        <div class="metric-card"><small>매출</small><strong>4,500만원</strong></div>
+        <div class="metric-card"><small>매체비</small><strong>4,100만원</strong></div>
+        <div class="metric-card"><small>인건비</small><strong>600만원</strong></div>
+        <div class="metric-card"><small>공헌이익</small><strong class="negative">-320만원</strong></div>
+        <div class="metric-card"><small>공헌이익률</small><strong class="negative">-4.2%</strong></div>
+        <div class="metric-card"><small>손익 기준</small><strong class="negative">미달</strong></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>손익 산출 내역</h3>
+      <div class="breakdown">
+        <div class="breakdown-row"><span>매출</span><span>45,000,000원</span></div>
+        <div class="breakdown-row"><span>매체비</span><span>-41,000,000원</span></div>
+        <div class="breakdown-row"><span>인건비</span><span>-6,000,000원</span></div>
+        <div class="breakdown-row"><span>공헌이익</span><span class="negative">-3,200,000원</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>이상감지 원인</h3>
+      <div class="reason">
+        <b>① 2개월 연속 공헌이익 적자</b><br>
+        전월 공헌이익 -80만원 → 당월 -320만원으로 적자가 지속되고 있습니다.<br><br>
+        <b>② 매체비 비중 과다</b><br>
+        매체비 비중 91.1%로 설정된 기준 70%를 초과했습니다.<br><br>
+        <b>③ 손익 재심 게이트 진입</b><br>
+        2개월 연속 적자 조건을 충족하여 손익 재심 검토 대상입니다.
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>최근 3개월 추이</h3>
+      <div class="timeline">
+        <div class="timeline-item"><b>2026.07 · 공헌이익 +320만원</b>정상 수익 구간</div>
+        <div class="timeline-item"><b>2026.08 · 공헌이익 -80만원</b>수익성 기준 미달</div>
+        <div class="timeline-item"><b>2026.09 · 공헌이익 -320만원</b>적자 확대 → 이상감지 발생</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>권장 조치</h3>
+      <div class="reason">
+        매체비 및 캠페인 운영비 재검토 후 손익 재심을 진행하는 것을 권장합니다.
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button onclick="closeDetail()">닫기</button>
+      <button class="primary" onclick="alert('손익 재심 검토 대상으로 등록했습니다.')">손익 재심 검토</button>
+    </div>
+  </div>
+</aside>
+
+<script>
+function openDetail(btn){
+  const alertEl = btn.closest('.alert');
+  const title = alertEl ? alertEl.querySelector('h4') : null;
+  const top = alertEl ? alertEl.querySelector('.alert-top') : null;
+  const time = alertEl ? alertEl.querySelector('p') : null;
+  if(title) document.getElementById('dCampaign').textContent = title.textContent;
+  if(top) document.getElementById('dType').textContent = top.innerText.trim();
+  if(time){
+    const m = time.innerText.match(/2026-\d{2}-\d{2} \d{2}:\d{2}/);
+    if(m) document.getElementById('dTime').textContent = m[0];
+  }
+  document.getElementById('backdrop').classList.add('show');
+  document.getElementById('detailModal').classList.add('show');
+}
+function closeDetail(){
+  document.getElementById('backdrop').classList.remove('show');
+  document.getElementById('detailModal').classList.remove('show');
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDetail(); });
+</script>
+
+</body></html>
