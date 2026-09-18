@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>MI Report</title>
+    <style>
+        .mi-container {
+            max-width: 900px;
+            margin: 20px auto;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            color: #333;
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 12px;
+        }
+        .mi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2b303a;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .mi-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1d20;
+        }
+        .mi-date {
+            font-size: 13px;
+            color: #6c757d;
+        }
+        .mi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .mi-card {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .mi-card h4 {
+            margin: 0 0 12px 0;
+            font-size: 15px;
+            color: #0d6efd;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mi-card ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #495057;
+        }
+        .mi-card li {
+            margin-bottom: 6px;
+        }
+        /* Sales Insight 전용 강조 카드 */
+        .mi-insight-card {
+            grid-column: span 2;
+            background: #f0f7ff;
+            border: 1px solid #b6d4fe;
+        }
+        .mi-insight-card h4 {
+            color: #0a58ca;
+            font-size: 16px;
+        }
+        .insight-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1e293b;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mi-container">
+    <!-- Header -->
+    <div class="mi-header">
+        <span class="mi-title">🏥 [피부과] Weekly Market Intelligence Report</span>
+        <span class="mi-date">수집 기간: 2026.09.07 ~ 2026.09.13</span>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="mi-grid">
+        <!-- 1. Market Trend -->
+        <div class="mi-card">
+            <h4>📈 1. Market Trend (시장/뉴스)</h4>
+            <ul>
+                <li>가을철 환절기 진입으로 탈모 및 리프팅 시술 검색량 전주 대비 24% 증가</li>
+                <li>의료광고 심의 관련 신규 가이드라인 배포 (체험단 후기성 광고 단속 강화)</li>
+                <li>피부 시술 관련 장비 프로모션 활성화로 병원 간 가격 경쟁 심화</li>
+            </ul>
+        </div>
+
+        <!-- 2. Competitor Activity -->
+        <div class="mi-card">
+            <h4>⚔️ 2. Competitor Activity (경쟁사 동향)</h4>
+            <ul>
+                <li><strong>A사:</strong> 강남권 주요 피부과 대상 '리프팅 + 콘텐츠 패키지' 신규 제안 확인 (5건)</li>
+                <li><strong>B사:</strong> 네이버 블로그 실행사 단가 10% 인하 프로모션 진행 중</li>
+                <li><strong>C사:</strong> 숏폼 영상 제작을 포함한 종합 마케팅 제안서 수주 확대</li>
+            </ul>
+        </div>
+
+        <!-- 3. Campaign Case Study -->
+        <div class="mi-card">
+            <h4>🏆 3. Campaign Case Study (성공 사례)</h4>
+            <ul>
+                <li><strong>OO피부과 (강남점):</strong> 맞춤 랜딩페이지 개편 후 상담 전환율 <strong>+32% 상승</strong></li>
+                <li><strong>XX의원 (홍대점):</strong> 탈모 전용 검색광고 소재 세분화로 CPA 18% 절감</li>
+            </ul>
+        </div>
+
+        <!-- 4. Sales Insight (AI 추천) -->
+        <div class="mi-card mi-insight-card">
+            <h4>💡 4. Sales Insight (영업 제안 포인트)</h4>
+            <div class="insight-content">
+                👉 <strong>탈모/리프팅 패키지 제안 적기:</strong> 환절기 수요 증가 시점에 맞춰 '검색광고 + 상담 전환형 랜딩' 패키지 세트 제안을 권장합니다.<br>
+                👉 <strong>경쟁사 방어 전략:</strong> A사의 콘텐츠 패키지 제안에 대응하기 위해, 당사 성공사례(상담 전환율 +32%)를 Pre-Sales 자료로 적극 활용하세요.
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
